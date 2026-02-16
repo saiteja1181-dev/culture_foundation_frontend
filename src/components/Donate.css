@@ -1,0 +1,12 @@
+.donate {
+  padding: 60px;
+  background: var(--dark-blue);
+  color: white;
+}
+
+.donate form {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
