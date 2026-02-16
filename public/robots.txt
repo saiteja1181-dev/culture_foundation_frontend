@@ -1,3 +1,317 @@
-# https://www.robotstxt.org/robotstxt.html
+# ============================================
+# ROBOTS.TXT FOR CULTURE FOUNDATION
+# Website: https://www.culturefoundation.org
+# Last Updated: 2026-02-16
+# ============================================
+
+# ----------------------
+# GENERAL RULES
+# ----------------------
 User-agent: *
-Disallow:
+Allow: /
+Allow: /about$
+Allow: /programs$
+Allow: /events$
+Allow: /success-stories$
+Allow: /donate$
+Allow: /volunteer$
+Allow: /contact$
+Allow: /blog$
+Allow: /gallery$
+Allow: /publications$
+Allow: /annual-reports$
+Allow: /images/
+Allow: /css/
+Allow: /js/
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.pdf$
+Allow: /*.xml$
+Allow: /*.txt$
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /test/
+Disallow: /draft/
+Disallow: /backup/
+Disallow: /old/
+Disallow: /archive/
+Disallow: /api/
+Disallow: /includes/
+Disallow: /config/
+Disallow: /database/
+Disallow: /cgi-bin/
+Disallow: /*?*
+Disallow: /*?page=*
+Disallow: /*?sort=*
+Disallow: /*?filter=*
+Disallow: /*.php$
+Disallow: /*.asp$
+Disallow: /*.aspx$
+Disallow: /*.jsp$
+Disallow: /*.pl$
+Disallow: /*.cgi$
+
+# ----------------------
+# GOOGLE BOT SPECIFIC
+# ----------------------
+User-agent: Googlebot
+Allow: /
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.pdf$
+Disallow: /*?*
+Crawl-delay: 2
+
+# ----------------------
+# GOOGLE IMAGE BOT
+# ----------------------
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Disallow: /
+
+# ----------------------
+# GOOGLE VIDEO BOT
+# ----------------------
+User-agent: Googlebot-Video
+Allow: /videos/
+Allow: /*.mp4$
+Allow: /*.webm$
+Allow: /*.ogg$
+Disallow: /
+
+# ----------------------
+# GOOGLE NEWS BOT
+# ----------------------
+User-agent: Googlebot-News
+Allow: /blog/
+Allow: /news/
+Allow: /events/
+Allow: /press-releases/
+Disallow: /
+
+# ----------------------
+# GOOGLE ADS BOT
+# ----------------------
+User-agent: AdsBot-Google
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+
+# ----------------------
+# BING BOT
+# ----------------------
+User-agent: Bingbot
+Allow: /
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Disallow: /*?*
+Crawl-delay: 2
+
+# ----------------------
+# BING IMAGE BOT
+# ----------------------
+User-agent: Bingbot-Image
+Allow: /images/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Disallow: /
+
+# ----------------------
+# YAHOO BOT
+# ----------------------
+User-agent: Yahoo! Slurp
+Allow: /
+Crawl-delay: 2
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*
+
+# ----------------------
+# YANDEX BOT
+# ----------------------
+User-agent: Yandex
+Allow: /
+Crawl-delay: 3
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*
+
+# ----------------------
+# BAIDU BOT
+# ----------------------
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 5
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*
+
+# ----------------------
+# DUCKDUCKGO BOT
+# ----------------------
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 2
+Disallow: /admin/
+Disallow: /private/
+
+# ----------------------
+# FACEBOOK BOT
+# ----------------------
+User-agent: facebookexternalhit
+Allow: /
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Disallow: /admin/
+Disallow: /private/
+
+# ----------------------
+# TWITTER BOT
+# ----------------------
+User-agent: Twitterbot
+Allow: /
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Disallow: /admin/
+Disallow: /private/
+
+# ----------------------
+# LINKEDIN BOT
+# ----------------------
+User-agent: LinkedInBot
+Allow: /
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Disallow: /admin/
+Disallow: /private/
+
+# ----------------------
+# PINTEREST BOT
+# ----------------------
+User-agent: Pinterestbot
+Allow: /
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Disallow: /admin/
+Disallow: /private/
+
+# ----------------------
+# WHATSAPP BOT
+# ----------------------
+User-agent: WhatsApp
+Allow: /
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Disallow: /admin/
+Disallow: /private/
+
+# ----------------------
+# OTHER BOTS
+# ----------------------
+User-agent: Applebot
+Allow: /
+Crawl-delay: 2
+Disallow: /admin/
+Disallow: /private/
+
+User-agent: Slackbot
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+User-agent: TelegramBot
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+User-agent: Discordbot
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+User-agent: SkypeUriPreview
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+User-agent: Facebot
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# ----------------------
+# SITEMAP LOCATION
+# ----------------------
+Sitemap: https://www.culturefoundation.org/sitemap.xml
+Sitemap: https://www.culturefoundation.org/sitemap-images.xml
+Sitemap: https://www.culturefoundation.org/sitemap-videos.xml
+Sitemap: https://www.culturefoundation.org/sitemap-news.xml
+
+# ----------------------
+# HOST
+# ----------------------
+Host: https://www.culturefoundation.org
+
+# ----------------------
+# CLEAN PARAMETERS
+# ----------------------
+Clean-param: utm_source
+Clean-param: utm_medium
+Clean-param: utm_campaign
+Clean-param: utm_term
+Clean-param: utm_content
+Clean-param: gclid
+Clean-param: fbclid
+Clean-param: msclkid
+Clean-param: ref
+Clean-param: source
+Clean-param: campaign
