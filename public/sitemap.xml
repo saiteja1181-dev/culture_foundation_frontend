@@ -39,4 +39,10 @@
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://www.culturefoundation.org/images/skill-development.jpg</image:loc>
-      <image
+      <image:caption>Skill Development Programs for Differently-Abled</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Add more URLs for all your pages -->
+  
+</urlset>
