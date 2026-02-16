@@ -17,8 +17,10 @@ const Events = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentEventIndex, setCurrentEventIndex] = useState(0);
+  const [imageLoading, setImageLoading] = useState(false);
+  const [nextImageIndex, setNextImageIndex] = useState(null);
 
-  // Sample event data
+  // Sample event data (your existing data)
   const sampleEvents = [
     {
       _id: '1',
@@ -89,7 +91,8 @@ const Events = () => {
       image: 'https://i.ibb.co/qYT4Qzdq/6-1.jpg',
       icon: FaLaptop,
       category: 'International Yoga Day'
-    },{
+    },
+    {
       _id: '8',
       title: 'Water Filter Donation for PWD School',
       date: '20 February 2026',
@@ -98,7 +101,8 @@ const Events = () => {
       image: 'https://i.ibb.co/svdp8dwp/Water-Filter-Donation-for-PWD-College.jpg',
       icon: FaLaptop,
       category: 'Donation'
-    },{
+    },
+    {
       _id: '9',
       title: 'Soap-Making Training Program in Tribal Areas',
       date: '20 February 2026',
@@ -108,8 +112,6 @@ const Events = () => {
       icon: FaLaptop,
       category: 'Training'
     }
-
-
   ];
 
   useEffect(() => {
@@ -120,12 +122,45 @@ const Events = () => {
     }, 1000);
   }, []);
 
+  // Preload image function
+  const preloadImage = (src) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = resolve;
+      img.onerror = reject;
+    });
+  };
+
+  const changeEvent = async (newIndex) => {
+    if (newIndex === currentEventIndex || !events.length) return;
+    
+    setImageLoading(true);
+    setNextImageIndex(newIndex);
+    
+    try {
+      // Preload the next image
+      await preloadImage(events[newIndex].image);
+      // Once image is loaded, update the current index
+      setCurrentEventIndex(newIndex);
+    } catch (error) {
+      console.error('Failed to load image:', error);
+      // Still change event even if image fails
+      setCurrentEventIndex(newIndex);
+    } finally {
+      setImageLoading(false);
+      setNextImageIndex(null);
+    }
+  };
+
   const nextEvent = () => {
-    setCurrentEventIndex((prev) => (prev + 1) % events.length);
+    const newIndex = (currentEventIndex + 1) % events.length;
+    changeEvent(newIndex);
   };
 
   const prevEvent = () => {
-    setCurrentEventIndex((prev) => (prev - 1 + events.length) % events.length);
+    const newIndex = (currentEventIndex - 1 + events.length) % events.length;
+    changeEvent(newIndex);
   };
 
   if (loading) {
@@ -140,6 +175,7 @@ const Events = () => {
   }
 
   const currentEvent = events[currentEventIndex];
+  const nextEventData = nextImageIndex !== null ? events[nextImageIndex] : currentEvent;
   const Icon = currentEvent.icon;
 
   return (
@@ -165,19 +201,36 @@ const Events = () => {
 
           {/* Event Card */}
           <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-            {/* Image */}
+            {/* Image with Loading State */}
             <div className="relative h-[400px] md:h-[500px]">
+              {/* Current Image (shows immediately when loaded) */}
               <img 
+                key={currentEvent.image} // Force re-render on image change
                 src={currentEvent.image} 
                 alt={currentEvent.title}
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  imageLoading ? 'opacity-50' : 'opacity-100'
+                }`}
               />
+              
+              {/* Loading Overlay */}
+              {imageLoading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                  <div className="bg-white/90 rounded-lg px-6 py-3 flex items-center gap-3">
+                    <div className="animate-spin rounded-full h-6 w-6 border-2 border-gray-300 border-t-2"
+                         style={{ borderTopColor: '#0066B3' }}></div>
+                    <span className="text-gray-700 font-medium">Loading image...</span>
+                  </div>
+                </div>
+              )}
               
               {/* Dark Overlay for text */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
               
-              {/* Content Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+              {/* Content Overlay - Text updates only after image loads */}
+              <div className={`absolute bottom-0 left-0 right-0 p-8 text-white transition-opacity duration-300 ${
+                imageLoading ? 'opacity-50' : 'opacity-100'
+              }`}>
                 {/* Category Badge */}
                 <div className="mb-3">
                   <span className="px-3 py-1 bg-[#FF6B35] text-white rounded-full text-sm font-medium inline-block">
@@ -194,8 +247,6 @@ const Events = () => {
                 <p className="text-gray-200 max-w-2xl mb-6">
                   {currentEvent.description}
                 </p>
-
-              
               </div>
             </div>
           </div>
@@ -203,13 +254,23 @@ const Events = () => {
           {/* Navigation Arrows */}
           <button 
             onClick={prevEvent}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-[#0066B3] hover:bg-[#0052A3] text-white p-3 rounded-full shadow-lg transition-all z-10"
+            disabled={imageLoading}
+            className={`absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 p-3 rounded-full shadow-lg transition-all z-10 ${
+              imageLoading 
+                ? 'bg-gray-400 cursor-not-allowed' 
+                : 'bg-[#0066B3] hover:bg-[#0052A3]'
+            } text-white`}
           >
             <FaChevronLeft className="text-xl" />
           </button>
           <button 
             onClick={nextEvent}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-[#0066B3] hover:bg-[#0052A3] text-white p-3 rounded-full shadow-lg transition-all z-10"
+            disabled={imageLoading}
+            className={`absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 p-3 rounded-full shadow-lg transition-all z-10 ${
+              imageLoading 
+                ? 'bg-gray-400 cursor-not-allowed' 
+                : 'bg-[#0066B3] hover:bg-[#0052A3]'
+            } text-white`}
           >
             <FaChevronRight className="text-xl" />
           </button>
@@ -220,12 +281,13 @@ const Events = () => {
           {events.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentEventIndex(index)}
+              onClick={() => changeEvent(index)}
+              disabled={imageLoading}
               className={`transition-all rounded-full ${
                 index === currentEventIndex 
                   ? 'w-8 h-2 bg-[#FF6B35]' 
                   : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
-              }`}
+              } ${imageLoading ? 'cursor-not-allowed opacity-50' : ''}`}
             />
           ))}
         </div>
